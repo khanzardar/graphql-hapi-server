@@ -3,3 +3,5 @@ server.crt
 server.csr
 server.key
 server.pass.key
+prisma
+src/plugins/greenlock.js
