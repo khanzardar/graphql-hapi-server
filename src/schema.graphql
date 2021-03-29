@@ -1,0 +1,50 @@
+type Query {
+    productsFollowedByUser: UserWatchlist
+    productPagesByRetailerAndRetailerSelectors(id:ID!):RetailerWatchlist
+}
+
+type Mutation {
+    followProduct(name:String!, price:Float, retailer:String, currency:String, productPageUrl:String, productImageUrl:String):UserWatchlist
+    unfollowProduct(productId: ID!):UserWatchlist
+    updateRetailerSelectors(retailerUrl:String!, productNameSelector:String, productPriceSelector:String, productCurrencySelector:String):Retailer
+    updateProductInfo(productId: Int, price:Float):Product
+}
+
+type Product {
+    id: ID
+    name: String
+    prices: [Price]
+    currency: String
+    retailer: Retailer
+    productImageUrl: String
+    productPageUrl: String
+}
+
+type User{
+    id: ID
+    email: String
+    firstName: String
+    lastName: String
+}
+
+type Price {
+    price: Float
+    datePriceRecorded: String #This eventually needs to be a DateTime type 
+}
+
+type Retailer {
+    retailerUrl: String
+    productNameSelector: String
+    productPriceSelector: String
+    productCurrencySelector: String
+}
+
+type UserWatchlist{
+    user: User
+    products: [Product]
+}
+
+type RetailerWatchlist{
+    brand: Retailer
+    products: [Product]
+}

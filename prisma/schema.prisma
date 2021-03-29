@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+//1 User can have many Tokens (1:n relation)
+//1 Product can have many Prices (1:n relation)
+//1 Product can have many Retailers and Retailers can have many products (m:n relation)
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  firstName String?
+  lastName  String?
+  products  Product[]
+  tokens    Token[]
+}
+
+model Token {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  type        TokenType @relation(fields: [tokenTypeId], references: [id])
+  emailToken  String?   @unique
+  valid       Boolean   @default(true)
+  expiration  DateTime
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  tokenTypeId Int
+}
+
+model TokenType {
+  id    Int     @id @default(autoincrement())
+  type  String
+  //opts EMAIL or API - should be enum datatype in other sql db
+  Token Token[]
+}
+
+model Product {
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  name            String
+  prices          Price[]
+  currency        String
+  productPageUrl  String @unique
+  productImageUrl String
+  retailer        Retailer @relation(fields: [retailerId], references: [id])
+  retailerId      Int
+  followers       User[]
+}
+
+model Price {
+  id                Int      @id @default(autoincrement())
+  datePriceRecorded DateTime @default(now())
+  price             Float
+  product           Product  @relation(fields: [productId], references: [id])
+  productId         Int
+}
+
+model Retailer {
+  id                      Int       @id @default(autoincrement())
+  retailerUrl             String    @unique
+  productNameSelector     String?
+  productPriceSelector    String?
+  productCurrencySelector String?
+  Product                 Product[]
+}
