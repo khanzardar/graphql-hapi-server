@@ -9,7 +9,7 @@
 <li><code>npx prisma migrate dev --preview-feature</code> &amp; set migration name to 'init'</li>
 <li>in the graphql-hapi-server root folder <code>touch .env</code></li>
 <li>Paste the following into .env:
-<code>EMAIL_ADDRESS_CONFIGURED_IN_SEND_GRID="team@noisey.ca" #SENDGRID_API_KEY="..."       JWT_SECRET="0e1BJUCjoLT5DrE5cCqwcMbZzh78kU0GA802KEsRwsRrxyonMgPnI/I7Eoqkeh3ufRhIPM3OrNrjwuPF+49ttBd3x+63Dm4cGFM74MT4jTlfekSAfx2Q94h67IivHuJMsfnzlJMRUb/cywDCl52Wxy7tgfSr3E1uyC+xqQHFwUYn4TtxaZeX1Q0ASSpcUTB4NiFP20a75kc2kRF0WZAP9c6ukJ3mnr0/lGj8TM/LmRwNw+vgL9j1Y2Rvoy6X2mEryNV5aJphFt9QeFSoKwRUP/tG83LHjpzpYu8v/mHfAcjmBUaGKmCQrxEYo8xFS6O/jcWEFcSSNIY/qwAOtF4lDA=="</code>
+<code>EMAIL_ADDRESS_CONFIGURED_IN_SEND_GRID="team@noisey.ca" #SENDGRID_API_KEY="..."       JWT_SECRET="..."</code>
 <strong>Alternatively, you can create your own JWT_SECRET using the following command:</strong> <code>node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"</code></li>
 <li><code>node seed-db.js</code></li>
 <li>You can verify that the db was seeded with test data by running: <code>npx prisma studio</code></li>
